@@ -55,7 +55,7 @@ async function handleLogin(matricula) {
 
     if (info.fail_reason) {
       if (info.fail_reason.includes("não existe")) {
-        return { success: false, message: "Matrícula não existe no sistem" };
+        return { success: false, message: "Matrícula não existe no sistema" };
       }
 
       if (info.fail_reason.includes("Credenciais Inválidas")) {
