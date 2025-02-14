@@ -5,6 +5,7 @@ import { Buffer } from "buffer";
 import * as cheerio from "cheerio";
 import tough from "tough-cookie";
 import axiosCookieJarSupport from "axios-cookiejar-support";
+import cors from "cors";
 
 // Configurações do Axios e cookie
 axiosCookieJarSupport.wrapper(axios);
@@ -107,14 +108,19 @@ export function parseLoginInfo(data) {
   return info;
 }
 
-// Criação do servidor Express
 const app = express();
 const port = 3000;
 
-// Middleware para analisar o corpo da requisição
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
 app.use(express.json());
 
-// Rota de verificação da matrícula
 app.post("/existeMatricula", async (req, res) => {
   const { matricula } = req.body;
   if (!matricula) {
